@@ -5,7 +5,7 @@
     select 
         {# This section looks at the sql aspect of the metric and ensures that 
         the value input into the macro is accurate #}
-        {{ dbt_utils.cast_string_to_date('\'' ~ metric_timestamp ~ '\'') }} as metric_date_day, -- timestamp field
+        {{ dbt_metrics_oracle.cast_string_to_date('\'' ~ metric_timestamp ~ '\'') }} as metric_date_day, -- timestamp field
         calendar_table.date_{{ grain }} as date_{{grain}},
         {% if secondary_calculations | length > 0 %}
             {% for period in relevant_periods %}
@@ -35,12 +35,12 @@
     {% if start_date or end_date%}
         and (
         {% if start_date and end_date %}
-            {{ dbt_utils.date_trunc('day', metric_timestamp) }} >= {{ dbt_utils.cast_string_to_date('\'' ~ start_date ~ '\'') }}
-            and {{ dbt_utils.date_trunc('day', metric_timestamp) }} <= {{ dbt_utils.cast_string_to_date('\'' ~ end_date ~ '\'') }}
+            {{ dbt_utils.date_trunc('day', metric_timestamp) }} >= {{ dbt_metrics_oracle.cast_string_to_date('\'' ~ start_date ~ '\'') }}
+            and {{ dbt_utils.date_trunc('day', metric_timestamp) }} <= {{ dbt_metrics_oracle.cast_string_to_date('\'' ~ end_date ~ '\'') }}
         {% elif start_date and not end_date %}
-            {{ dbt_utils.date_trunc('day', metric_timestamp) }} >= {{ dbt_utils.cast_string_to_date('\'' ~ start_date ~ '\'') }}
+            {{ dbt_utils.date_trunc('day', metric_timestamp) }} >= {{ dbt_metrics_oracle.cast_string_to_date('\'' ~ start_date ~ '\'') }}
         {% elif end_date and not start_date %}
-            {{ dbt_utils.date_trunc('day', metric_timestamp) }} <= {{ dbt_utils.cast_string_to_date('\'' ~ end_date ~ '\'') }}
+            {{ dbt_utils.date_trunc('day', metric_timestamp) }} <= {{ dbt_metrics_oracle.cast_string_to_date('\'' ~ end_date ~ '\'') }}
         {% endif %} 
         )
     {% endif %} 
