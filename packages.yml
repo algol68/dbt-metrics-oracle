@@ -1,0 +1,6 @@
+packages:
+  - git: "https://github.com/algol68/dbt-utils-oracle.git"
+    revision: 0.0.1      
+  - git: "https://github.com/algol68/dbt-metrics-oracle.git"
+    revision: branch-release-0.3.2
+
