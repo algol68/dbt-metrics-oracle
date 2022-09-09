@@ -2,4 +2,3 @@ name: 'dbt_metrics_oracle'
 version: '0.3.1'
 config-version: 2
 
-require-dbt-version: ">=1.2"
